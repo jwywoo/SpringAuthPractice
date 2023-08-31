@@ -23,7 +23,7 @@ public class BeanTest {
     // @Autowired => indicates we are using Bean from IoC container
     // @Component => indicates we are setting current class as bean
     // @Autowired
-    //Food food;
+    // Food food;
 
     // Getting same type of beans of one Interface for AutoWired 3
     // @Qualifier > @Primary
