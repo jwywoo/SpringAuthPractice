@@ -62,6 +62,7 @@ public class AuthController {
         return "getSession : " + value;
     }
 
+
     @GetMapping("/create-jwt")
     public String createJwt(HttpServletResponse res) {
         // Jwt 생성
@@ -110,3 +111,4 @@ public class AuthController {
         }
     }
 }
+

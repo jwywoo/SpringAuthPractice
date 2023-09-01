@@ -13,24 +13,20 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-// if you don't want to create constructor
-// you can have
-// @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtUtil jwtUtil;
 
-
-    // ADMIN_TOKEN
-    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
-
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtUtil jwtUtil) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtUtil = jwtUtil;
     }
+
+    // ADMIN_TOKEN
+    private final String ADMIN_TOKEN = "AAABnvxRVklrnYxKZ0aHgTBcXukeZygoC";
 
     public void signup(SignupRequestDto requestDto) {
         String username = requestDto.getUsername();
@@ -66,16 +62,18 @@ public class UserService {
     public void login(LoginRequestDto requestDto, HttpServletResponse res) {
         String username = requestDto.getUsername();
         String password = requestDto.getPassword();
-        // user check
+
+        // 사용자 확인
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new IllegalArgumentException("Not Valid")
+                () -> new IllegalArgumentException("등록된 사용자가 없습니다.")
         );
-        // password check
+
+        // 비밀번호 확인
         if (!passwordEncoder.matches(password, user.getPassword())) {
-            throw new IllegalArgumentException("Not Valid");
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         }
 
-        // JWT Init
+        // JWT 생성 및 쿠키에 저장 후 Response 객체에 추가
         String token = jwtUtil.createToken(user.getUsername(), user.getRole());
         jwtUtil.addJwtToCookie(token, res);
     }
