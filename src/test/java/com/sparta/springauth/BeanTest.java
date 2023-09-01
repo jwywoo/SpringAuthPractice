@@ -1,6 +1,7 @@
 package com.sparta.springauth;
 
 import com.sparta.springauth.food.Food;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Primary;
 
 @SpringBootTest
 @Primary
+//@Disabled
 public class BeanTest {
     // Getting same type of beans of one Interface for AutoWired 1
 //    @Autowired
